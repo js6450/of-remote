@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OF Remote</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</head>
+<style>
+    body{
+        margin-top: 20px;
+    }
+    p{
+        text-align: center;
+    }
+</style>
+<body>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        let remoteData = [0, 2000, 2, 50, 20, 100, 40, 10];
+
+        function changeData(input){
+            remoteData[input.id] = input.value;
+
+            document.getElementById(input.id + "-text").innerHTML = input.value;
+            console.log(remoteData);
+
+            socket.emit("message", remoteData);
+        }
+
+    </script>
+
+    <p>Minimum thresh: <span id="0-text">0</span>
+    <input onchange="changeData(this)" id="0" class="mdl-slider mdl-js-slider" type="range"
+           min="0" max="4000" value="0" tabindex="0">
+    </p>
+    <p>Maximum thresh: <span id="1-text">2000</span>
+    <input onchange="changeData(this)" id="1" class="mdl-slider mdl-js-slider" type="range"
+           min="0" max="4000" value="2000" tabindex="0">
+    </p>
+    <p>Skip points: <span id="2-text">2</span>
+        <input onchange="changeData(this)" id="2" class="mdl-slider mdl-js-slider" type="range"
+               min="1" max="15" value="2" tabindex="0">
+    </p>
+    <p>Color mesh alpha: <span id="3-text">50</span>
+        <input onchange="changeData(this)" id="3" class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="255" value="50" tabindex="0">
+    </p>
+    <p>X oscillation amount: <span id="4-text">20</span>
+        <input onchange="changeData(this)" id="4" class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="300" value="20" tabindex="0">
+    </p>
+    <p>Y oscillation amount: <span id="5-text">100</span>
+        <input onchange="changeData(this)" id="5" class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="300" value="100" tabindex="0">
+    </p>
+    <p>Z oscillation amount: <span id="6-text">40</span>
+        <input onchange="changeData(this)" id="6" class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="300" value="40" tabindex="0">
+    </p>
+    <p>Y spin amount: <span id="7-text">10</span>
+        <input onchange="changeData(this)" id="7" class="mdl-slider mdl-js-slider" type="range"
+               min="0" max="180" value="10" tabindex="0">
+    </p>
+</body>
+</html>
